@@ -1,1 +1,1 @@
-bin_PROGRAMS = hello second third
+bin_PROGRAMS = hello second third interpreter
