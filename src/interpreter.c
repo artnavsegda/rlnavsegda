@@ -4,11 +4,11 @@
 #include <readline/history.h>
 #include "config.h"
 
-char *character_names[] = {
-    "Arthur Dent",
-    "Ford Prefect",
-    "Tricia McMillan",
-    "Zaphod Beeblebrox",
+char *character_names[][4] = {
+    {"file",NULL},
+    {"Ford Prefect"},
+    {"Tricia McMillan"},
+    {"Zaphod Beeblebrox"},
     NULL
 };
 
@@ -48,9 +48,9 @@ character_name_generator(const char *text, int state)
     }
 
     //printf("state %d index %d len %d\n",state, list_index, len);
-    puts(text);
+    //puts(text);
 
-    while ((name = character_names[list_index++])) {
+    while ((name = character_names[list_index++][0])) {
         if (strncmp(name, text, len) == 0) {
             return strdup(name);
         }
