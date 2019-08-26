@@ -19,11 +19,15 @@ main(int argc, char *argv[])
 {
     rl_attempted_completion_function = character_name_completion;
 
-    printf("Who's your favourite Hitchiker's Guide character?\n");
-    char *buffer = readline("> ");
-    if (buffer) {
-        printf("You entered: %s\n", buffer);
-        free(buffer);
+    while(1)
+    {
+      char *buffer = readline("> ");
+      if (buffer) {
+          printf("You entered: %s\n", buffer);
+          free(buffer);
+      }
+      else
+        break;
     }
 
     return 0;
@@ -47,7 +51,7 @@ character_name_generator(const char *text, int state)
         len = strlen(text);
     }
 
-    printf("state %d index %d len %d\n",state, list_index, len);
+    // printf("state %d index %d len %d\n",state, list_index, len);
 
     while ((name = character_names[list_index++])) {
         if (strncmp(name, text, len) == 0) {

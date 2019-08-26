@@ -4,12 +4,12 @@
 #include <readline/history.h>
 #include "config.h"
 
-char *character_names[][4] = {
-    {"file",NULL},
-    {"Ford Prefect"},
-    {"Tricia McMillan"},
-    {"Zaphod Beeblebrox"},
-    NULL
+char *character_names[][6] = {
+    {"file", NULL},
+    {"eat", "breakfast", "dinner", "lunch", "snack", NULL},
+    {"play", "cards", "chess", "go", NULL},
+    {"walk", "left", "right", "straight", NULL},
+    {NULL, NULL}
 };
 
 int arrlength(char **array)
@@ -28,12 +28,15 @@ int parse(char * stringtoparse, char **tokarr)
     tokarr[++i] = NULL;
 }
 
-int interpret(char * stringtointerpret)
+char * find_command(char **tokarr, int start)
 {
-  char *tokarr[100]; // maximum argument count
-  parse(stringtointerpret, tokarr);
   int numberoftokens = arrlength(tokarr);
-  printf("number of tokens %d\n", numberoftokens);
+  if (numberoftokens > 0)
+  {
+    if (start > 0)
+      return tokarr[0];
+  }
+  return NULL;
 }
 
 char *
@@ -47,13 +50,10 @@ character_name_generator(const char *text, int state)
         len = strlen(text);
     }
 
-    //printf("state %d index %d len %d\n",state, list_index, len);
-    //puts(text);
-
     while ((name = character_names[list_index++][0])) {
-        if (strncmp(name, text, len) == 0) {
-            return strdup(name);
-        }
+      if (strncmp(name, text, len) == 0) {
+        return strdup(name);
+      }
     }
 
     return NULL;
@@ -62,6 +62,17 @@ character_name_generator(const char *text, int state)
 char **
 character_name_completion(const char *text, int start, int end)
 {
+    char *tokarr[100];
+    char *inputline = strdup(rl_line_buffer);
+    parse(inputline, tokarr);
+    char *command = find_command(tokarr, start);
+
+    // if (command != NULL)
+    // {
+    //   puts(command);
+    //   printf("cursor %d\n",start);
+    // }
+
     rl_attempted_completion_over = 1;
     return rl_completion_matches(text, character_name_generator);
 }
@@ -77,7 +88,7 @@ int main()
     if (!input)
       break;
     add_history(input);
-    interpret(input);
+    //interpret(input);
     free(input);
   }
 	return 0;
