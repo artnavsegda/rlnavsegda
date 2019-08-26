@@ -39,6 +39,8 @@ char * find_command(char **tokarr, int start)
   return NULL;
 }
 
+char *command; // luche nikak chem tak
+
 char *
 character_name_generator(const char *text, int state)
 {
@@ -50,9 +52,12 @@ character_name_generator(const char *text, int state)
         len = strlen(text);
     }
 
-    while ((name = character_names[list_index++][0])) {
-      if (strncmp(name, text, len) == 0) {
-        return strdup(name);
+    if (command == NULL)
+    {
+      while ((name = character_names[list_index++][0])) {
+        if (strncmp(name, text, len) == 0) {
+          return strdup(name);
+        }
       }
     }
 
@@ -65,15 +70,10 @@ character_name_completion(const char *text, int start, int end)
     char *tokarr[100];
     char *inputline = strdup(rl_line_buffer);
     parse(inputline, tokarr);
-    char *command = find_command(tokarr, start);
-
-    // if (command != NULL)
-    // {
-    //   puts(command);
-    //   printf("cursor %d\n",start);
-    // }
+    command = find_command(tokarr, start);
 
     rl_attempted_completion_over = 1;
+
     return rl_completion_matches(text, character_name_generator);
 }
 
