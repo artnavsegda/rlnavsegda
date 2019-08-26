@@ -4,6 +4,14 @@
 #include <readline/history.h>
 #include "config.h"
 
+char *character_names[] = {
+    "Arthur Dent",
+    "Ford Prefect",
+    "Tricia McMillan",
+    "Zaphod Beeblebrox",
+    NULL
+};
+
 int arrlength(char **array)
 {
   int length = 0;
@@ -28,9 +36,40 @@ int interpret(char * stringtointerpret)
   printf("number of tokens %d\n", numberoftokens);
 }
 
+char *
+character_name_generator(const char *text, int state)
+{
+    static int list_index, len;
+    char *name;
+
+    if (!state) {
+        list_index = 0;
+        len = strlen(text);
+    }
+
+    //printf("state %d index %d len %d\n",state, list_index, len);
+    puts(text);
+
+    while ((name = character_names[list_index++])) {
+        if (strncmp(name, text, len) == 0) {
+            return strdup(name);
+        }
+    }
+
+    return NULL;
+}
+
+char **
+character_name_completion(const char *text, int start, int end)
+{
+    rl_attempted_completion_over = 1;
+    return rl_completion_matches(text, character_name_generator);
+}
+
 int main()
 {
   rl_bind_key('\t', rl_complete);
+  rl_attempted_completion_function = character_name_completion;
 
   while (1)
   {
