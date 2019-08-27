@@ -60,6 +60,17 @@ character_name_generator(const char *text, int state)
         }
       }
     }
+    else
+    {
+      for (int cmd_index = 0; name = character_names[cmd_index][0]; cmd_index++)
+        if (strcmp(name, command) == 0) {
+          while ((name = character_names[cmd_index][++list_index])) {
+            if (strncmp(name, text, len) == 0) {
+              return strdup(name);
+          }
+        }
+      }
+    }
 
     return NULL;
 }
