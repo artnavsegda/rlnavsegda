@@ -17,6 +17,9 @@ static int chisto(int count, int key)
   else
     {
       printf("\n%d\n",count);
+      printf("buffer: %s\n", rl_line_buffer);
+      printf("position: %d\n", rl_point);
+      printf("buf len %d\n", rl_end);
       //rl_message("hello");
 //  rl_on_new_line();
       rl_forced_update_display();
