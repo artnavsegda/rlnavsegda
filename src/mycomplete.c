@@ -4,10 +4,23 @@
 #include <readline/history.h>
 #include "config.h"
 
+int i = 0;
+
 static int chisto(int count, int key)
 {
-  printf("%d\n",count);
-  rl_forced_update_display();
+  if (i == 0)
+    i = 1;
+  else
+    i = 0;
+  if (i)
+    rl_insert_text("puk");
+  else
+    {
+      printf("\n%d\n",count);
+      //rl_message("hello");
+//  rl_on_new_line();
+      rl_forced_update_display();
+    }
 }
 
 int main()
