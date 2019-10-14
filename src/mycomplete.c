@@ -4,9 +4,15 @@
 #include <readline/history.h>
 #include "config.h"
 
+static int chisto(int count, int key)
+{
+  printf("%d\n",count);
+  rl_forced_update_display();
+}
+
 int main()
 {
-  rl_bind_key('\t', rl_complete);
+  rl_bind_key('\t', chisto);
 
   while (1)
   {
