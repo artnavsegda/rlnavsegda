@@ -95,12 +95,12 @@ main (int c, char **v)
           break;
         }
       if (sigwinch_received)
-	{
-	  //rl_resize_terminal ();
-	  sigwinch_received = 0;
-	}
+      {
+        //rl_resize_terminal ();
+        sigwinch_received = 0;
+      }
       if (r < 0)
-	continue;     
+        continue;     
 
       if (FD_ISSET (fileno (rl_instream), &fds))
         rl_callback_read_char ();
