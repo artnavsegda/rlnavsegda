@@ -1,3 +1,3 @@
-bin_PROGRAMS = hello second third interpreter fourth fifth quote strmbtok mycomplete
+bin_PROGRAMS = hello third quote strmbtok mycomplete async
 fourth_SOURCES = fourth.cpp utils.cpp
 fifth_SOURCES = fifth.cpp utils.cpp
