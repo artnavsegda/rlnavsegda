@@ -64,6 +64,7 @@ cb_linehandler (char *line)
       printf ("input line: %s\n", line);
       free (line);
     }
+    rl_callback_handler_install (prompt, cb_linehandler);
 }
 
 int
@@ -71,7 +72,6 @@ main (int c, char **v)
 {
   fd_set fds;
   int r;
-
 
   setlocale (LC_ALL, "");
 
