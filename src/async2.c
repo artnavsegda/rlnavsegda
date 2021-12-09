@@ -10,18 +10,6 @@ char running = 1;
 // The function that'll get passed each line of input
 void my_rlhandler(char* line);
 void my_rlhandler(char* line){
-  if(line==NULL){
-        // Ctrl-D will allow us to exit nicely
-    printf("\nNULLBURGER\n");
-    running = 0;
-  }else{
-    if(*line!=0){
-          // If line wasn't empty, store it so that uparrow retrieves it
-      add_history(line);
-    }
-    printf("Your input was:\n%s\n", line);
-    free(line);
-  }
 }
 
 // The main entry-point for the program
