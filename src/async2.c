@@ -34,7 +34,9 @@ int main()
   rl_callback_handler_install(prompt, my_rlhandler);
 
   while(running){
-    if(poll(pfds, 1, 0) == 1)
+    poll(pfds,1, -1);
+
+    if(pfds[0].revents & POLLIN)
       rl_callback_read_char();
   };
 
