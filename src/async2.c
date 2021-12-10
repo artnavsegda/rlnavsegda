@@ -11,10 +11,15 @@ const char *prompt = ">";
 
 void my_rlhandler(char* line){
   if (line == NULL || strcmp (line, "exit") == 0)
-    {
-      rl_callback_handler_remove ();
-      running = 0;
-    }
+  {
+    rl_callback_handler_remove ();
+    running = 0;
+  }
+
+  if (strcmp (line, "test") == 0)
+  {
+    printf("running test\n");
+  }
 
   rl_callback_handler_install(prompt, my_rlhandler);
 }
