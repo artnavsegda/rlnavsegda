@@ -27,14 +27,14 @@ void my_rlhandler(char* line){
 int main()
 {
   struct pollfd pfds[2];
-  
+  int pfdcount = 1;
   pfds[0].fd = 0;
   pfds[0].events = POLLIN;
 
   rl_callback_handler_install(prompt, my_rlhandler);
 
   while(running){
-    poll(pfds,1, -1);
+    poll(pfds,pfdcount, -1);
 
     if(pfds[0].revents & POLLIN)
       rl_callback_read_char();
